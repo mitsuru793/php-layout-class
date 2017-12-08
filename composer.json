@@ -1,0 +1,10 @@
+{
+  "name": "mitsuru793/php-layout-class",
+  "description": "Layout uses class, but not template file",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "PhpLayoutClass\\": "src/"
+    }
+  }
+}
