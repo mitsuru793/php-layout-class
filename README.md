@@ -99,6 +99,8 @@ abstract class Layout
 
 ベースとなるLayoutを継承して、実際に使用するLayoutを定義していく。`__toString()`がHTMLを返せば良い。子クラスとなるpageで書き換えたい部分は、Layoutでメソッド抽出してPageでオーバーライドする。下記は`content()`と`sidebar()`をpageで変更可能にしている。
 
+先にコンテンツ部分からレンダリングをするようにしているため、コンテンツ部分のJavascriptの出力をfooterにまとめたりも可能。内側からレンダリングされるということ。
+
 ```php
 <?php
 
@@ -107,6 +109,10 @@ abstract class DefaultLayout extends Layout
     public function __toString(): string
     {
         ob_start();
+        $this->content();
+        $content = ob_get_clean();
+        
+        ob_start();
         ?>
         <html>
         <head>
@@ -114,7 +120,7 @@ abstract class DefaultLayout extends Layout
         </head>
         <body>
         <div class="content">
-            <? $this->content() ?>
+            <?= $content ?>
         </div>
         <div class="sidebar">
             <? $this->sidebar() ?>

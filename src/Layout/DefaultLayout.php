@@ -8,6 +8,10 @@ abstract class DefaultLayout extends Layout
     public function __toString(): string
     {
         ob_start();
+        $this->content();
+        $content = ob_get_clean();
+
+        ob_start();
         ?>
         <html>
         <head>
@@ -15,7 +19,7 @@ abstract class DefaultLayout extends Layout
         </head>
         <body>
         <div class="content">
-            <? $this->content() ?>
+            <?= $content ?>
         </div>
         <div class="sidebar">
             <? $this->sidebar() ?>
